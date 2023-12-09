@@ -1,4 +1,4 @@
-app = Dash(__name__)
+app = dash.Dash(__name__)
 server = app.server
 # specify the layout of the dashboard
 app.layout = html.Div([

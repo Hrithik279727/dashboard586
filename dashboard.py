@@ -28,6 +28,7 @@ df.head()
 
 app = Dash(__name__)
 server = app.server
+
 # specify the layout of the dashboard
 app.layout = html.Div([
     html.H1(children=["MTCF Single Vehicle Pedestrian Crash Dashboard"],
@@ -134,9 +135,13 @@ def update_figure(start_date, end_date, variable_d_value, injury_value):
                                                else 'No/Possible/Minor Injury'))
     
     if injury_value == 'No':
-    
-        fig = px.bar(df_updated[[variable_d_value,'Person Degree of Injury']].value_counts().reset_index(),
-                     x=variable_d_value, y='count')
+        data_ = (df_updated[variable_d_value]
+                .value_counts()
+                .reset_index()
+               )
+        data_.columns=[variable_d_value,'count']
+        
+        fig = px.bar(data_frame=data_, x=variable_d_value, y='count')
         
         fig.update_layout(title_font_size=16,)
         fig.update_xaxes(title=variable_d_value,type='category')
@@ -151,8 +156,15 @@ def update_figure(start_date, end_date, variable_d_value, injury_value):
         return fig
     
     elif injury_value == 'KABCO':
+        
+        data_ = (df_updated[[variable_d_value,'Person Degree of Injury']]
+                .value_counts()
+                .reset_index()
+               )
+        
+        data_.columns=[variable_d_value, 'Person Degree of Injury', 'count']
     
-        fig = px.bar(df_updated[[variable_d_value,'Person Degree of Injury']].value_counts().reset_index(),
+        fig = px.bar(data_frame=data_,
                      x=variable_d_value, y='count',
                      color='Person Degree of Injury',
                      barmode="group")
@@ -167,9 +179,13 @@ def update_figure(start_date, end_date, variable_d_value, injury_value):
 
     elif injury_value == 'Binary':
         
+        data_ = (df_new[[variable_d_value,'Binary_injury']]
+                .value_counts()
+                .reset_index()
+               )
+        data_.columns=[variable_d_value, 'Binary_injury','count']
         
-        
-        fig = px.bar(df_new[[variable_d_value,'Binary_injury']].value_counts().reset_index(),
+        fig = px.bar(data_frame=data_,
                      x=variable_d_value, y='count',
                      color='Binary_injury',
                      barmode="group")

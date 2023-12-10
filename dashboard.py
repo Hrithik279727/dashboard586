@@ -1,4 +1,6 @@
-from dash import Dash, html
+from dash import Dash
+import dash_core_components as dcc
+import dash_html_components as html
 app = Dash(__name__)
 server = app.server
 # specify the layout of the dashboard

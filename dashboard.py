@@ -3,6 +3,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_table 
 from dash.dependencies import Input, Output, State
+import pandas as pd
+df = pd.read_csv('./pedestrian.csv')
+
 app = Dash(__name__)
 server = app.server
 # specify the layout of the dashboard

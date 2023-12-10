@@ -5,6 +5,26 @@ import dash_table
 from dash.dependencies import Input, Output, State
 import pandas as pd
 df = pd.read_excel('./Test1.xlsx')
+df['date'] = df['Crash Month'] + " " + \
+             df['Crash Day'].astype(str) + ', ' +\
+             df['Crash Year'].astype(str)
+df['date']
+
+df['time'] = df['Time of Day'].apply(lambda x: x.split(sep=' - ')[0])
+df.time.replace({'12:00 midnight':'12:00 AM',
+                 '12:00 noon':'12:00 PM'}, inplace=True)
+df.time.unique()
+
+df['datetime_combined'] = df['date'] + ' at ' + df['time']
+df['datetime_combined']
+
+df['datetime'] = pd.to_datetime(df['datetime_combined'], 
+               format="%B %d, %Y at %I:%M %p",
+               errors="coerce" #ignore errors (time as Unknown does not match the format, in coerce, invalid set as NaT not a time)
+              ) 
+
+df.set_index('datetime', inplace=True)
+df.head()
 
 app = Dash(__name__)
 server = app.server

@@ -211,7 +211,7 @@ def update_figure(start_date, end_date, injury_geo_value):
 
 if __name__ == '__main__':
     
-    app.run(jupyter_mode='external') #app.run() show below /external link
+    app.run() #app.run() show below /external link
     #app.run_server(host='0.0.0.0', debug=True)
     #app.run()
     

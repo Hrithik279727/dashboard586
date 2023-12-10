@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_table 
 from dash.dependencies import Input, Output, State
 import pandas as pd
+import plotly.express as px
 df = pd.read_excel('./Test1.xlsx')
 df['date'] = df['Crash Month'] + " " + \
              df['Crash Day'].astype(str) + ', ' +\

@@ -4,7 +4,7 @@ import dash_html_components as html
 import dash_table 
 from dash.dependencies import Input, Output, State
 import pandas as pd
-df = pd.read_csv('./pedestrian.csv')
+df = pd.read_excel('./Test1.xlsx')
 
 app = Dash(__name__)
 server = app.server
